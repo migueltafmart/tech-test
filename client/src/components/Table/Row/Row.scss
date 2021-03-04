@@ -1,4 +1,8 @@
 tr {
+  td.mssg{
+    padding: 6px 24px;
+    background:#f3edff
+  }
   &.Row {
     &:first-child{
       box-shadow: inset 0 6px 6px #4e15d341;

@@ -36,7 +36,19 @@ table.Table {
     padding: 0;
   }
   tr:last-child > td > .wrapper {
-    padding: 6px 12px;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    background: #9061ff;
+    border-radius: 0 0 12px 12px;
+    padding: 3px 24px;
+    span{
+      cursor: pointer;
+      font-size: 24px;
+      color: white;
+    }
+    div{
+    
     background: #9061ff;
     display:flex;
     justify-content:center;
@@ -61,6 +73,11 @@ table.Table {
         box-shadow: 0 0 6px #1fda82;
       }
     }
+    span:last-child{
+      justify-self: flex-end;
+    }
+    }
+    
   }
   tr > td:first-child{
     width: 0;

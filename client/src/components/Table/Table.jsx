@@ -69,6 +69,16 @@ const Table = () => {
     setQuery({ is: !query.is, key: query.key });
     setPage(0);
   };
+  const onReset = () => {
+    axios
+      .get("http://localhost:5000")
+      .then((products) => {
+        setProducts([...products.data]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <table
       autoFocus
@@ -130,34 +140,47 @@ const Table = () => {
             .slice(page * 10, pageSize + page * 10)
             .sort()
             .map((product) => <Row product={product} key={product.productId} />)
+        ) : query.is ? (
+          <tr>
+            <td className="mssg" colSpan="4">
+              Buscando productos...
+            </td>
+          </tr>
+        ) : query.key.lenght > 6 ? (
+          <tr>
+            <td className="mssg" colSpan="4">
+              Cargando productos...
+            </td>
+          </tr>
         ) : (
-          query.is ? (
-            <tr>
-            <td colSpan="4">Buscando productos...</td>
-          </tr>
-          ):(
-            <tr>
-            <td colSpan="4">Cargando productos...</td>
-          </tr>
-          )
           
+          <tr>
+            <td autoFocus className="mssg" colSpan="4">
+              No se ha encontrado ningún producto
+            </td> 
+          </tr>
         )}
         <tr>
           <td colSpan="4">
             <div className="wrapper">
-              <button
-                onClick={() => setPage(page - 1)}
-                className="material-icons"
-              >
-                keyboard_arrow_left
-              </button>
-              <span>{page + 1}</span>
-              <button
-                onClick={() => setPage(page + 1)}
-                className="material-icons"
-              >
-                keyboard_arrow_right
-              </button>
+              <div>
+                <button
+                  onClick={() => setPage(page - 1)}
+                  className="material-icons"
+                >
+                  keyboard_arrow_left
+                </button>
+                <span>{page + 1}</span>
+                <button
+                  onClick={() => setPage(page + 1)}
+                  className="material-icons"
+                >
+                  keyboard_arrow_right
+                </button>
+              </div>
+              <span onClick={onReset} className="material-icons">
+                restart_alt
+              </span>
             </div>
           </td>
         </tr>

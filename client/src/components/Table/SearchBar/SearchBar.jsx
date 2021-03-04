@@ -31,6 +31,7 @@ const SearchBar = ({query, setQuery,setProducts}) => {
       <td colSpan="4">
         <form onSubmit={(e)=>onSearch(e)} action="http://localhost:5000/search" method="GET">
         <input
+          autoFocus
           onChange={write}
           autoComplete="off"
           type="text"
