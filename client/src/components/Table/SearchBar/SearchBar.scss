@@ -1,0 +1,34 @@
+tr.SearchBar{
+    background: #9061ff;
+    td{
+        border-radius: 12px 12px 0 0;
+        background: #ff93c9;
+    }
+    form{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        input[type=text]{
+            background: #ff93c9;
+            color: #c4136b;
+            width: 50%;
+            padding: 12px;
+            padding-left: 24px;
+            font-size: 18px;
+            border: none;
+            border-radius:12px 12px 0 0;
+            &::placeholder{
+                color: #e766a7; 
+            }
+            &:focus{
+                outline: none;
+            }
+        }
+        input[type=submit]{
+            margin-right: 24px;
+            color: #c4136b;
+            background: none;
+            border: none;
+        }
+    }
+}
