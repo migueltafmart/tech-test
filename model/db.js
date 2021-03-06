@@ -25,7 +25,7 @@ exports.getProducts = async () => {
   }
 };
 exports.findProducts = async (query) => {
-  query = query+"%";
+  query = `${query}%`;
   if (query) {
     let conn;
     let payload;
@@ -41,7 +41,6 @@ exports.findProducts = async (query) => {
       payload = null;
     } finally {
       if (conn) conn.end();
-      console.log(payload);
       return payload;
     }
   } else {

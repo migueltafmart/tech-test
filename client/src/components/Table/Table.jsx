@@ -54,15 +54,22 @@ const Table = () => {
   };
 
   useEffect(() => {
-    //*Query principal a la BBDD
-    axios
-      .get("http://localhost:5000")
-      .then((products) => {
-        setProducts([...products.data]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    //If the products arern't on the navigator's memory
+    if (!sessionStorage.products) {
+      //*Query principal a la BBDD
+      axios
+        .get("http://localhost:5000")
+        .then((products) => {
+          sessionStorage.products = JSON.stringify(products.data);
+          setProducts([...products.data]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      //Else get the products from the navigator's storage
+    } else {
+      setProducts(JSON.parse(sessionStorage.products));
+    }
   }, []);
 
   const onSearch = () => {
@@ -70,14 +77,20 @@ const Table = () => {
     setPage(0);
   };
   const onReset = () => {
-    axios
-      .get("http://localhost:5000")
-      .then((products) => {
-        setProducts([...products.data]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!sessionStorage.products) {
+      axios
+        .get("http://localhost:5000")
+        .then((products) => {
+          sessionStorage.products = JSON.stringify(products.data);
+          setProducts([...products.data]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      //Else get the products from the navigator's storage
+    } else {
+      setProducts(JSON.parse(sessionStorage.products));
+    }
   };
   return (
     <table
@@ -141,11 +154,7 @@ const Table = () => {
             .sort()
             .map((product) => <Row product={product} key={product.productId} />)
         ) : query.is ? (
-          <tr>
-            <td className="mssg" colSpan="4">
-              Buscando productos...
-            </td>
-          </tr>
+          <></>
         ) : query.key.lenght > 6 ? (
           <tr>
             <td className="mssg" colSpan="4">
@@ -153,11 +162,10 @@ const Table = () => {
             </td>
           </tr>
         ) : (
-          
           <tr>
             <td autoFocus className="mssg" colSpan="4">
               No se ha encontrado ningún producto
-            </td> 
+            </td>
           </tr>
         )}
         <tr>

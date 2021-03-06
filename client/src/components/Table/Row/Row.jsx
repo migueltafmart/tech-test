@@ -14,6 +14,7 @@ const Row = ({ product }) => {
   } else if (product.relevance) {
     rel = "Baja";
   }
+
   return (
     <>
       <tr className="Row">
